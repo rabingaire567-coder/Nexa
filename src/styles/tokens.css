@@ -1,0 +1,133 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   Nexa design tokens
+   Palette is drawn from the national flag — crimson and deep blue — warmed
+   with Himalayan gold and glacier cyan so data layers stay legible.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Brand */
+  --crimson: #ff3d63;
+  --crimson-deep: #d81e46;
+  --flag-blue: #2a5bd7;
+  --flag-blue-deep: #12308f;
+  --gold: #f5a524;
+  --glacier: #38bdf8;
+  --jade: #34d399;
+  --violet: #a78bfa;
+  --coral: #ff7a59;
+
+  /* Typography */
+  --font-sans: 'Inter var', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, sans-serif;
+  --font-devanagari: 'Noto Sans Devanagari', 'Nirmala UI', 'Mangal', 'Kokila', var(--font-sans);
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', Consolas, monospace;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-base: 0.9375rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.6rem;
+  --fs-2xl: 2.15rem;
+  --fs-3xl: clamp(2.4rem, 6vw, 4.2rem);
+  --fs-hero: clamp(2.9rem, 8.4vw, 6.4rem);
+
+  /* Space */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 6rem;
+
+  /* Radius */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-full: 999px;
+
+  /* Layout */
+  --maxw: 1280px;
+  --maxw-narrow: 880px;
+  --nav-h: 64px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast: 140ms;
+  --t-base: 260ms;
+  --t-slow: 520ms;
+
+  /* Elevation */
+  --sh-sm: 0 1px 2px rgb(2 6 16 / 0.4);
+  --sh-md: 0 8px 24px -8px rgb(2 6 16 / 0.55);
+  --sh-lg: 0 24px 60px -20px rgb(2 6 16 / 0.7);
+  --sh-glow: 0 0 0 1px rgb(255 61 99 / 0.28), 0 12px 40px -12px rgb(255 61 99 / 0.32);
+}
+
+/* ── Dark (default) ─────────────────────────────────────────────────── */
+[data-theme='dark'] {
+  --bg: #070b14;
+  --bg-2: #0a1020;
+  --bg-3: #0e1628;
+  --surface: rgb(255 255 255 / 0.038);
+  --surface-2: rgb(255 255 255 / 0.062);
+  --surface-solid: #101a2e;
+  --line: rgb(255 255 255 / 0.09);
+  --line-2: rgb(255 255 255 / 0.16);
+
+  --ink: #eef3fb;
+  --ink-2: #b6c4da;
+  --ink-3: #7f90aa;
+  --ink-4: #57657e;
+
+  --grad-hero: radial-gradient(120% 90% at 12% -10%, rgb(255 61 99 / 0.24) 0%, transparent 55%),
+    radial-gradient(100% 80% at 88% 0%, rgb(56 189 248 / 0.2) 0%, transparent 52%),
+    radial-gradient(90% 90% at 50% 108%, rgb(167 139 250 / 0.16) 0%, transparent 60%),
+    linear-gradient(180deg, #070b14 0%, #0a1020 55%, #070b14 100%);
+  --grad-ink: linear-gradient(180deg, #ffffff 0%, #c3d3ea 100%);
+  --grad-crimson: linear-gradient(135deg, #ff3d63 0%, #ff7a59 100%);
+  --grad-glacier: linear-gradient(135deg, #38bdf8 0%, #a78bfa 100%);
+  --grad-gold: linear-gradient(135deg, #f5a524 0%, #ffd166 100%);
+  --grid-line: rgb(255 255 255 / 0.035);
+  --glass: rgb(12 20 36 / 0.72);
+  --scrim: rgb(3 6 14 / 0.72);
+}
+
+/* ── Light ──────────────────────────────────────────────────────────── */
+[data-theme='light'] {
+  --bg: #f6f4ef;
+  --bg-2: #fffdf9;
+  --bg-3: #efebe2;
+  --surface: rgb(16 26 46 / 0.035);
+  --surface-2: rgb(16 26 46 / 0.06);
+  --surface-solid: #ffffff;
+  --line: rgb(16 26 46 / 0.11);
+  --line-2: rgb(16 26 46 / 0.2);
+
+  --ink: #101a2e;
+  --ink-2: #33415c;
+  --ink-3: #5b6883;
+  --ink-4: #8592a9;
+
+  --grad-hero: radial-gradient(120% 90% at 12% -10%, rgb(216 30 70 / 0.13) 0%, transparent 55%),
+    radial-gradient(100% 80% at 88% 0%, rgb(18 48 143 / 0.12) 0%, transparent 52%),
+    linear-gradient(180deg, #f8f5ef 0%, #fffdf9 60%, #f3efe6 100%);
+  --grad-ink: linear-gradient(180deg, #101a2e 0%, #3b4a66 100%);
+  --grad-crimson: linear-gradient(135deg, #d81e46 0%, #ff6a3d 100%);
+  --grad-glacier: linear-gradient(135deg, #1d6fd0 0%, #6d4fd0 100%);
+  --grad-gold: linear-gradient(135deg, #c07806 0%, #e0a41a 100%);
+  --grid-line: rgb(16 26 46 / 0.045);
+  --glass: rgb(255 253 249 / 0.8);
+  --scrim: rgb(28 34 48 / 0.42);
+
+  --sh-sm: 0 1px 2px rgb(16 26 46 / 0.07);
+  --sh-md: 0 10px 26px -12px rgb(16 26 46 / 0.22);
+  --sh-lg: 0 28px 64px -24px rgb(16 26 46 / 0.3);
+  --sh-glow: 0 0 0 1px rgb(216 30 70 / 0.22), 0 14px 40px -14px rgb(216 30 70 / 0.24);
+}

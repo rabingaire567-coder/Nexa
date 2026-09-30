@@ -1,0 +1,148 @@
+{
+  "$meta": {
+    "note": "National anchors and time series used by the Nexa dashboard. Sources: NSO Census 2021, Nepal Tourism Board, Ministry of Culture Tourism & Civil Aviation, World Bank, DataReportal, ITU, WHO, NDRRMA.",
+    "unit": "unless stated"
+  },
+  "identity": {
+    "nameEn": "Nepal",
+    "nameNe": "नेपाल",
+    "flag": "🇳🇵",
+    "motto": "अस्ति उत्तरोत्तरेषि दक्षिणेषि प्रविशन्ति सर्वदा ।",
+    "mottoEn": "The wise move east to west, north to south.",
+    "nationalFlower": "Lalitpur (Rhododendron arboreum)",
+    "shape": "Roughly triangular; ~885 km east–west and ~193 km north–south",
+    "highestPoint": "Sagarmatha (Mt. Everest) 8,848.86 m",
+    "lowestPoint": "Kechana Kalan, Jhapa ~59 m",
+    "timeZone": "NPT (UTC+05:45)",
+    "languages": 124,
+    "currency": "Nepalese Rupee (NPR)",
+    "callingCode": "+977"
+  },
+  "headline": [
+    { "id": "districts", "label": "Districts", "value": 77, "suffix": "", "sub": "across 7 provinces", "source": "Constitution, Schedule 4" },
+    { "id": "population", "label": "Population", "value": 29164578, "suffix": "", "sub": "2021 census", "source": "NSO Census 2021" },
+    { "id": "localgov", "label": "Local governments", "value": 753, "suffix": "", "sub": "6 metro · 11 sub-metro · 276 urban · 460 rural", "source": "Ministry of Local Affairs" },
+    { "id": "tourists", "label": "Foreign arrivals 2025", "value": 1158459, "suffix": "", "sub": "97% of the 2019 record", "source": "Nepal Tourism Board" }
+  ],
+  "stats": [
+    { "id": "area", "label": "Total area", "value": 147181, "unit": "km²", "note": "0.7% of Earth's landmass", "source": "NSO" },
+    { "id": "pop", "label": "Population", "value": 29164578, "unit": "", "note": "Density ~198 people/km²", "source": "NSO Census 2021" },
+    { "id": "density", "label": "Density", "value": 198.15, "unit": "/km²", "note": "Madhesh 632.9 vs Karnali 55.0", "source": "NSO Census 2021" },
+    { "id": "rural", "label": "Rural population", "value": 77, "unit": "%", "note": "Connectivity in rural areas: ~22%", "source": "NLSS 2022/23" },
+    { "id": "online", "label": "People online", "value": 56, "unit": "%", "note": "vs 145.7% reported subscriptions", "source": "DataReportal 2026" },
+    { "id": "householdNet", "label": "Households with home internet", "value": 40, "unit": "%", "note": "Broadband coverage claims overstate access", "source": "NLSS 2022/23" },
+    { "id": "literacy", "label": "Digital literacy", "value": 31, "unit": "%", "note": "The real constraint, not coverage", "source": "NTA 2025" },
+    { "id": "pm25", "label": "Worst-station PM2.5", "value": 384, "unit": "µg/m³", "note": "WHO guideline: 15 µg/m³", "source": "KVMQAP / CEN 2025" },
+    { "id": "speed", "label": "Valley peak-hour speed", "value": 11, "unit": "km/h", "note": "Slower than riding a bicycle", "source": "DoR / KV Traffic Police" },
+    { "id": "msw", "label": "Urban waste generated", "value": 4900, "unit": "t/day", "note": "~50% uncollected; 1.8 Mt/year", "source": "World Bank 2020" },
+    { "id": "organic", "label": "Organic share of waste", "value": 71, "unit": "%", "note": "Untapped composting + biogas", "source": "Dangi et al. 2011" },
+    { "id": "health", "label": "Within 30 min of care", "value": 61.8, "unit": "%", "note": "Urban 85.9% vs rural 59.0%", "source": "MoHP / DHS" },
+    { "id": "arrivals", "label": "Tourist arrivals 2025", "value": 1158459, "unit": "", "note": "Oct 2025 peak month: 128,443", "source": "Nepal Tourism Board" },
+    { "id": "stay", "label": "Average stay", "value": 13.3, "unit": "days", "note": "Up from 13.2 in 2023", "source": "MoCTCA Tourism Statistics" },
+    { "id": "spend", "label": "Daily spend per visitor", "value": 40.8, "unit": "USD", "note": "1.4% of GDP from tourism", "source": "MoCTCA" },
+    { "id": "fx", "label": "Tourism FX earnings", "value": 82.3, "unit": "b NPR", "note": "45.1% of merchandise exports", "source": "MoCTCA FY 2080/81" },
+    { "id": "hydro", "label": "Electricity from hydro", "value": 90, "unit": "%", "note": "Seasonal mismatch drives outages", "source": "NEA" },
+    { "id": "everest", "label": "Everest summits, spring 2026", "value": 1008, "unit": "", "note": "274 on 20 May alone — single-day record", "source": "Department of Tourism" },
+    { "id": "heritage", "label": "UNESCO World Heritage sites", "value": 4, "unit": "", "note": "Kathmandu Valley, Lumbini, Sagarmatha, Lumbini Sacred Garden", "source": "UNESCO" },
+    { "id": "hydroSites", "label": "Hydro projects (in operation + under construction)", "value": 300, "unit": "+", "note": "Export ambition to India and Bangladesh", "source": "NEA" },
+    { "id": "mobile", "label": "Mobile subscriptions", "value": 35.23, "unit": "million", "note": "Voice penetration 120.8%", "source": "NTA / ITU" },
+    { "id": "karnaliNet", "label": "Karnali internet penetration", "value": 14, "unit": "%", "note": "vs Kathmandu Valley 79.3%", "source": "NTA" }
+  ],
+  "series": {
+    "tourism": {
+      "label": "International visitor arrivals (air + land)",
+      "unit": "arrivals",
+      "points": [
+        { "y": 2014, "v": 790118 }, { "y": 2015, "v": 538970 }, { "y": 2016, "v": 753002 },
+        { "y": 2017, "v": 940218 }, { "y": 2018, "v": 1173072 }, { "y": 2019, "v": 1197191 },
+        { "y": 2020, "v": 230085 }, { "y": 2021, "v": 150962 }, { "y": 2022, "v": 614148 },
+        { "y": 2023, "v": 1014876 }, { "y": 2024, "v": 1147548 }, { "y": 2025, "v": 1158459 },
+        { "y": 2026, "v": 620453, "partial": true }
+      ],
+      "source": "Nepal Tourism Board / MoCTCA. 2026 covers Jan–Jun only."
+    },
+    "touristsByMonth": {
+      "label": "Monthly arrivals 2026",
+      "unit": "arrivals",
+      "points": [
+        { "y": "Jan", "v": 92573 }, { "y": "Feb", "v": 105441 }, { "y": "Mar", "v": 102516 },
+        { "y": "Apr", "v": 107934 }, { "y": "May", "v": 102626 }, { "y": "Jun", "v": 91363 }
+      ],
+      "source": "Nepal Tourism Board"
+    },
+    "topMarkets": {
+      "label": "Top source markets 2025",
+      "unit": "visitors",
+      "points": [
+        { "y": "India", "v": 292438 }, { "y": "USA", "v": 112316 }, { "y": "China", "v": 95480 },
+        { "y": "United Kingdom", "v": 58684 }, { "y": "Bangladesh", "v": 57545 },
+        { "y": "Other", "v": 592000 }
+      ],
+      "source": "Nepal Tourism Board"
+    },
+    "provincePop": {
+      "label": "Population by province",
+      "unit": "people",
+      "points": [
+        { "y": "Bagmati", "v": 6116866 }, { "y": "Madhesh", "v": 6114600 }, { "y": "Lumbini", "v": 5122078 },
+        { "y": "Koshi", "v": 4961412 }, { "y": "Sudurpashchim", "v": 2694783 }, { "y": "Gandaki", "v": 2466427 },
+        { "y": "Karnali", "v": 1688412 }
+      ],
+      "source": "NSO Census 2021"
+    },
+    "provinceDensity": {
+      "label": "Population density by province",
+      "unit": "people/km²",
+      "points": [
+        { "y": "Madhesh", "v": 632.92 }, { "y": "Lumbini", "v": 265.79 }, { "y": "Bagmati", "v": 301.32 },
+        { "y": "Sudurpashchim", "v": 137.92 }, { "y": "Gandaki", "v": 113.18 }, { "y": "Karnali", "v": 54.97 }
+      ],
+      "source": "NSO Census 2021"
+    },
+    "connectivityGap": {
+      "label": "Internet access — urban vs rural",
+      "unit": "% of population",
+      "points": [
+        { "y": "Urban households", "v": 65 }, { "y": "Urban individuals", "v": 47 },
+        { "y": "Rural households", "v": 22 }, { "y": "Rural individuals", "v": 16 }
+      ],
+      "source": "NASC IT Infrastructure Report"
+    },
+    "trekRegions": {
+      "label": "Foreign visitors entering trekking regions",
+      "unit": "visitors",
+      "points": [
+        { "y": "Annapurna CA (Jan–Oct 2025)", "v": 246575 }, { "y": "Manaslu CA (FY 2024/25)", "v": 12512 },
+        { "y": "Restricted-area trekkers (2024)", "v": 28894 }, { "y": "Everest summite permits (spring 2026)", "v": 494 }
+      ],
+      "source": "Nepal Tourism Board / Department of Tourism"
+    }
+  },
+  "monsoon": {
+    "label": "Monsoon road risk",
+    "note": "Nepal Police and the Department of Roads impose recurring night bans on flood-prone highway sections every monsoon.",
+    "bans": [
+      { "road": "BP Highway — Khurkot–Nepalthok–Katunjebesi", "window": "18:00–04:00 daily", "reason": "Flood risk" },
+      { "road": "Kanti Lokpath — Makwanpur", "window": "17:00–05:00 daily", "reason": "Rain" },
+      { "road": "Araniko Highway — Sindhupalchok (Charkilo, Kodari, Liping)", "window": "Full closure", "reason": "Road collapse / landslide" },
+      { "road": "Mechi Highway — Rajduwali, Ilam", "window": "Full closure", "reason": "Mudslide" },
+      { "road": "Trishuli–Mailung–Syabrubesi — Rasuwa (Khalte)", "window": "Full closure", "reason": "Riverbank erosion" },
+      { "road": "Mid-Hill Highway — Bokhim, Bhojpur / Kade, Tehrathum", "window": "Full closure", "reason": "Landslide" },
+      { "road": "Bheri Corridor — Rukum West (Rijegard Khola)", "window": "Full closure", "reason": "Debris flow" },
+      { "road": "Beni–Jomsom Highway — Myagdi (Baiseri, Mahabhir)", "window": "Full closure", "reason": "Landslide" }
+    ]
+  },
+  "emergencies": {
+    "label": "National emergency numbers",
+    "items": [
+      { "name": "Police", "number": "100", "note": "Nepal Police" },
+      { "name": "Ambulance", "number": "102", "note": "Nepal Police" },
+      { "name": "Fire", "number": "101", "note": "Nepal Police" },
+      { "name": "Traffic", "number": "103", "note": "Kathmandu Valley Traffic Police" },
+      { "name": "Women & Children", "number": "114", "note": "National Women's Commission" },
+      { "name": "Disaster", "number": "118", "note": "NDRF Nepal" },
+      { "name": "Mental health", "number": "1166", "note": "Toll-free helpline" },
+      { "name": "Nepal Tourism Board", "number": "1141", "note": "Tourist assistance" }
+    ]
+  }
+}

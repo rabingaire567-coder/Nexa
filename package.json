@@ -1,0 +1,36 @@
+{
+  "name": "nexa",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Nexa — Everyday Problems, Smarter Solutions. An AI civic-intelligence platform built for Nepal.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite",
+    "server": "node server/index.js",
+    "dev:full": "node scripts/dev-full.mjs",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --force",
+    "lint": "oxlint src server scripts",
+    "icons": "node scripts/gen-icons.mjs",
+    "zip": "node scripts/make-zip.mjs"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  }
+}

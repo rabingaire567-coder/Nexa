@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#9b1b3f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <title>Nexa — Everyday Problems, Smarter Solutions | Nepal</title>
+    <meta
+      name="description"
+      content="Nexa is an AI civic-intelligence platform for Nepal. Research everyday Nepali problems, map them to all 77 districts, and get smarter, localised solutions from an AI assistant that understands Nepal."
+    />
+    <meta name="keywords" content="Nexa, Nepal, AI, civic tech, smart city, Kathmandu, Pokhara, air pollution, flood, waste, traffic, digital divide" />
+    <meta name="author" content="Nexa" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="color-scheme" content="dark light" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nexa" />
+    <meta property="og:title" content="Nexa — Everyday Problems, Smarter Solutions" />
+    <meta property="og:description" content="AI civic intelligence for Nepal. All 77 districts, 7 provinces and 9 everyday-problem sectors, with a Nepali-first AI assistant." />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A Himalayan ridge beneath a rising sun — the Nexa mark." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nexa — Everyday Problems, Smarter Solutions" />
+    <meta name="twitter:description" content="AI civic intelligence for Nepal: 77 districts, 9 problem sectors, and Sakhi, a Nepali-first assistant." />
+    <meta name="twitter:image" content="/og-image.png" />
+    <script>
+      (function () {
+        try {
+          var s = localStorage.getItem('nexa.theme');
+          if (s === 'light' || s === 'dark') document.documentElement.dataset.theme = s;
+          else document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="nexa-boot" aria-hidden="true">
+      <svg viewBox="0 0 64 64" width="56" height="56"><circle cx="32" cy="32" r="26" fill="none" stroke="#38bdf8" stroke-width="2" opacity=".25"/><circle cx="32" cy="32" r="26" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-dasharray="40 200"><animateTransform attributeName="transform" type="rotate" from="0 32 32" to="360 32 32" dur="1.1s" repeatCount="indefinite"/></circle></svg>
+    </div>
+    <noscript>
+      <div style="padding:48px;font-family:system-ui;color:#e2e8f0;background:#070b14">
+        <h1>Nexa</h1>
+        <p>Nexa needs JavaScript enabled to run its AI civic-intelligence engine.</p>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

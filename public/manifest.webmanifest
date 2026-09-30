@@ -1,0 +1,23 @@
+{
+  "name": "Nexa — Nepal's Civic AI Atlas",
+  "short_name": "Nexa",
+  "description": "A civic intelligence platform for all 77 districts of Nepal: grounded problem data, citizen reporting, and Sakhi, a Nepali-first AI assistant.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b1020",
+  "theme_color": "#9b1b3f",
+  "lang": "en",
+  "categories": ["government", "education", "utilities"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Problem Atlas", "url": "./atlas", "description": "Explore the national problem map" },
+    { "name": "Ask Sakhi", "url": "./ask", "description": "Talk to the Nepali-first AI assistant" },
+    { "name": "Report a problem", "url": "./report", "description": "Submit a civic signal from your ward" }
+  ]
+}

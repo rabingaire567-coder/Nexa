@@ -1,0 +1,324 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   Nexa motion language
+   Scroll reveals, staged entrances, ambient loops, and a global kill-switch.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-left {
+  from {
+    opacity: 0;
+    transform: translateX(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-right {
+  from {
+    opacity: 0;
+    transform: translateX(-22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.75;
+  }
+  70% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -420px 0;
+  }
+  100% {
+    background-position: 420px 0;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: var(--dash, 1200);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes sheen {
+  0% {
+    transform: translateX(-130%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(240%) skewX(-18deg);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* ── Scroll reveal ──────────────────────────────────────────────────── */
+/* The hidden start state is gated behind `html.motion-ready`, which only
+   main.tsx sets. Without JS (or if JS dies before mounting) every section
+   stays fully visible instead of vanishing. */
+.reveal {
+  transition: opacity var(--t-slow) var(--ease-out), transform var(--t-slow) var(--ease-out);
+  will-change: opacity, transform;
+}
+
+.motion-ready .reveal:not(.is-in) {
+  opacity: 0;
+}
+
+.motion-ready .reveal.from-up:not(.is-in) {
+  transform: translateY(28px);
+}
+
+.motion-ready .reveal.from-down:not(.is-in) {
+  transform: translateY(-22px);
+}
+
+.motion-ready .reveal.from-left:not(.is-in) {
+  transform: translateX(-30px);
+}
+
+.motion-ready .reveal.from-right:not(.is-in) {
+  transform: translateX(30px);
+}
+
+.motion-ready .reveal.from-scale:not(.is-in) {
+  transform: scale(0.955);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger children without inline delays. */
+.stagger > * {
+  animation: fade-up var(--t-slow) var(--ease-out) both;
+}
+
+.stagger > *:nth-child(1) { animation-delay: 0.02s; }
+.stagger > *:nth-child(2) { animation-delay: 0.08s; }
+.stagger > *:nth-child(3) { animation-delay: 0.14s; }
+.stagger > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger > *:nth-child(5) { animation-delay: 0.26s; }
+.stagger > *:nth-child(6) { animation-delay: 0.32s; }
+.stagger > *:nth-child(7) { animation-delay: 0.38s; }
+.stagger > *:nth-child(8) { animation-delay: 0.44s; }
+.stagger > *:nth-child(9) { animation-delay: 0.5s; }
+.stagger > *:nth-child(10) { animation-delay: 0.56s; }
+.stagger > *:nth-child(11) { animation-delay: 0.62s; }
+.stagger > *:nth-child(12) { animation-delay: 0.68s; }
+
+.stagger-fast > * {
+  animation-duration: 340ms;
+}
+
+/* ── Named entrance helpers ─────────────────────────────────────────── */
+.a-up { animation: fade-up var(--t-slow) var(--ease-out) both; }
+.a-down { animation: fade-down var(--t-slow) var(--ease-out) both; }
+.a-left { animation: fade-left var(--t-slow) var(--ease-out) both; }
+.a-right { animation: fade-right var(--t-slow) var(--ease-out) both; }
+.a-in { animation: fade-in var(--t-base) var(--ease-out) both; }
+.a-pop { animation: pop-in var(--t-base) var(--ease-spring) both; }
+
+.d-1 { animation-delay: 60ms; }
+.d-2 { animation-delay: 120ms; }
+.d-3 { animation-delay: 180ms; }
+.d-4 { animation-delay: 240ms; }
+.d-5 { animation-delay: 300ms; }
+.d-6 { animation-delay: 360ms; }
+.d-7 { animation-delay: 420ms; }
+.d-8 { animation-delay: 480ms; }
+
+/* ── Ambient ────────────────────────────────────────────────────────── */
+.breathe { animation: breathe 7s var(--ease-in-out) infinite; }
+.float { animation: float-y 6s var(--ease-in-out) infinite; }
+.spin-slow { animation: spin 22s linear infinite; }
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 46s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ── Loading ────────────────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 8%, var(--surface-2) 22%, var(--surface) 36%);
+  background-size: 840px 100%;
+  animation: shimmer 1.5s linear infinite;
+  border-radius: var(--r-sm);
+}
+
+.spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--line-2);
+  border-top-color: var(--glacier);
+  border-radius: 50%;
+  animation: spin 640ms linear infinite;
+}
+
+.caret::after {
+  content: '▍';
+  color: var(--glacier);
+  animation: blink 1s steps(1) infinite;
+  margin-left: 2px;
+}
+
+/* ── Accessibility kill-switch ──────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+.reduce-motion .reveal {
+  opacity: 1;
+  transform: none;
+}

@@ -1,0 +1,10 @@
+# Normalise line endings so the workflow and zip are byte-identical everywhere.
+* text=auto eol=lf
+
+*.png binary
+*.ico binary
+*.woff2 binary
+*.zip binary
+
+# Keep generated data out of diffs.
+data/signals.json -diff linguist-generated=true

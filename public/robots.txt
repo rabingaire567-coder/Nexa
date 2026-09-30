@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Nexa is a static civic-information site. Nothing here is private,
+# but the /report and /ask routes hold user input only in the browser.

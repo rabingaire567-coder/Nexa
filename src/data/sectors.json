@@ -1,0 +1,227 @@
+{
+  "$meta": {
+    "note": "Each sector pairs a measurable everyday problem with the mechanism that causes it in Nepal, and a verified anchor figure from public reporting.",
+    "severity": "0 = solved, 100 = acute national crisis."
+  },
+  "sectors": [
+    {
+      "id": "air",
+      "name": "Air & Pollution",
+      "ne": "वायु प्रदूषण",
+      "icon": "wind",
+      "accent": "#f97362",
+      "severity": 88,
+      "headline": "Kathmandu Valley breathes 7–8× the WHO safe limit, every single day.",
+      "problem": "Fine particulate matter from vehicle exhaust, brick kilns in the Terai, construction dust, brick-and-tile burning, crop-residue burning in the plains, and seasonal transboundary smoke from India push annual PM2.5 far above the WHO guideline of 15 µg/m³. The valley holds roughly 60% of Nepal's air-pollution-attributable deaths, and winter inversions trap the smoke for weeks at a time.",
+      "mechanism": [
+        "Topography: the valley is a closed bowl at ~1,400 m, so cold-air inversions trap pollutants.",
+        "Unplanned vertical growth: roads were designed for 1980s traffic volumes.",
+        "Unsegregated waste burning as the cheapest disposal route.",
+        "Brick kilns operate in the winter dry season when the air is already trapped.",
+        "Cross-border smoke drift during pre-monsoon and winter."
+      ],
+      "anchor": { "value": 384, "unit": "µg/m³ PM2.5", "label": "Worst-station annual mean, Kathmandu Valley (2025)", "target": 15, "targetLabel": "WHO guideline" },
+      "signals": ["14 of 16 KMC stations on red alert in winter", "Life expectancy reduced ~3.5 years", "Monsoon 'cleans' the air but stays 3–5× above guideline", "Schools open on red days with no indoor filtration"],
+      "solutions": [
+        { "title": "Electrify the last mile of urban freight", "lever": "Transport", "horizon": "2–4 yrs", "impact": 78, "cost": "High", "effort": "Medium", "how": "Mandate zero-emission last-mile delivery inside Ring Road corridors; subsidise e-cargo trikes and depot charging. Removes the highest-emitting diesel fleet from the densest airshed." },
+        { "title": "Seasonal kiln-to-cement conversion with a hard winter ban", "lever": "Regulation", "horizon": "1–2 yrs", "impact": 72, "cost": "High", "effort": "Medium", "how": "Convert Bhaktapur/Chitwan kiln belts to horizontal cement or enforce a winter closure. Kitchens and homes need an affordable LPG/electricity bridge or the ban fails." },
+        { "title": "Mandatory waste segregation plus a real Material Recovery Facility chain", "lever": "Waste", "horizon": "3–5 yrs", "impact": 61, "cost": "Medium", "effort": "Medium", "how": "Separate organic recovery at source and ship segregated recyclables to the Banchare Danda MRF. Waling and Tilottama already prove the model works at municipal scale." },
+        { "title": "Valley-wide air-quality sensor mesh with public AQI dashboard", "lever": "Data", "horizon": "6–12 mo", "impact": 54, "cost": "Low", "effort": "Low", "how": "Dense low-cost sensor network plus school-level display boards. Cuts exposure by letting households time outdoor activity — the highest-return, lowest-cost intervention available." },
+        { "title": "Green public transport: bus priority lanes + electric fleet on Ring Road", "lever": "Transport", "horizon": "3–5 yrs", "impact": 69, "cost": "Very high", "effort": "High", "how": "Move people, not cars. Bus-only lanes plus an e-bus fleet on Ring Road cuts both PM2.5 and congestion at once." }
+      ]
+    },
+    {
+      "id": "traffic",
+      "name": "Mobility & Traffic",
+      "ne": "यातायात र भीड",
+      "icon": "route",
+      "accent": "#f5a524",
+      "severity": 82,
+      "headline": "Kathmandu's peak-hour average speed is about 11 km/h — slower than cycling.",
+      "problem": "Roads were sized for 1980s vehicle numbers. Unplanned growth, weak public transport, badly timed signal cycles, and no reliable bus priority have produced chronic gridlock across the Valley, while 5–9% of national GDP is lost to congestion. On the highways, night-closure bans on flood-prone sections now cost Nepal several hours of travel per monsoon journey.",
+      "mechanism": [
+        "Road capacity built for pre-1990 traffic demand.",
+        "Public transport under-supplied and unprotected in lanes.",
+        "Unsignalised junctions and poor signal coordination city-wide.",
+        "Corridor highways with single-lane failure modes and no bypass.",
+        "Monsoon night bans on BP, Araniko, Kanti and Mid-Hill highways."
+      ],
+      "anchor": { "value": 11, "unit": "km/h", "label": "Kathmandu peak-hour average speed", "target": 25, "targetLabel": "Healthy-city benchmark" },
+      "signals": ["Outer Ring Road opened 2025 to divert through-traffic", "Araniko Highway blocked at Charkilo, Kodari, Liping", "BP Highway Khurkot–Nepalthok closed 18:00–04:00 in monsoon", "Mid-Hill Highway cut near Bokhim and Kade", "Average commuter loses ~60 hours/year in the Valley"],
+      "solutions": [
+        { "title": "AI signal coordination across the Valley junction network", "lever": "Traffic", "horizon": "6–12 mo", "impact": 74, "cost": "Low", "effort": "Low", "how": "Adaptive offsets derived from live probe traffic feed. Fastest measurable congestion reduction per rupee in any Nepali city right now." },
+        { "title": "Bus Rapid Transit spine: Ring Road ↔ core with median lanes", "lever": "Transport", "horizon": "5–8 yrs", "impact": 86, "cost": "Very high", "effort": "High", "how": "A single well-designed trunk line carries more people per hour than ten bus lanes of cars. Requires enforcing bus-only lanes politically — the hard part." },
+        { "title": "Monsoon route advisories with community-sourced road status", "lever": "Data", "horizon": "6 mo", "impact": 66, "cost": "Low", "effort": "Low", "how": "A live national road-status layer fed by police, DoR and drivers. Cuts the stranded-vehicle and night-ban-casualty problem at near-zero cost." },
+        { "title": "Standardised city bus operating contracts + real-time GPS", "lever": "Transport", "horizon": "2–3 yrs", "impact": 71, "cost": "Medium", "effort": "Medium", "how": "Contract routes to reliability, not just routes. Riders choose buses when they can trust the arrival time." },
+        { "title": "Strategic parking reform in the heritage core", "lever": "Regulation", "horizon": "1–2 yrs", "impact": 58, "cost": "Low", "effort": "Medium", "how": "Price on-street parking by occupancy and restrict tourist buses in Bhaktapur/Lalitpur cores during peak hours." }
+      ]
+    },
+    {
+      "id": "flood",
+      "name": "Floods & Landslides",
+      "ne": "बाढी र पहिरो",
+      "icon": "waves",
+      "accent": "#38bdf8",
+      "severity": 91,
+      "headline": "One heavy shower now floods Kathmandu. The drains are 50 years old.",
+      "problem": "The 2015 Bhaktapur inundation proved a single downpour can submerge the capital. Culverts are sized for 1970s runoff, concrete paving sends every drop straight into undersized drains, waste blocks them, and the Bagmati's course has been altered by sand extraction. In the Himalaya, glacial lake outburst floods and monsoon landslides repeatedly sever highways and isolate mountain districts.",
+      "mechanism": [
+        "Drainage designed decades ago for far smaller catchment runoff.",
+        "Encroachment on open land and natural floodplains.",
+        "Solid waste blocking culverts and inlets.",
+        "River-course alteration and sand mining redirecting flow.",
+        "Glacial lake growth + non-engineered settlement in steep gullies."
+      ],
+      "anchor": { "value": 1750, "unit": "tonnes/day", "label": "Kathmandu Valley municipal solid waste, ~28% uncollected", "target": 90, "targetLabel": "% collected for safe treatment" },
+      "signals": ["Maitighar, Bishnumati Corridor and Kankeshwari flood within hours", "Rasuwa GLOF (2025) cut Syabrubesi–Rasuwagadhi and 3 projects", "2.2 million tonnes of Bhotekoshi debris after the 2025 flood", "Night travel bans on 4+ national highways each monsoon", "Perishable-debris flood depth over 2 m in Terai"],
+      "solutions": [
+        { "title": "Pre-monsoon drain desilting + zero-waste storm protocol", "lever": "Drainage", "horizon": "2–3 mo", "impact": 79, "cost": "Low", "effort": "Low", "how": "Clear every culvert and inlet before June, and ban open burning between 15 May and 15 July. Highest benefit-per-rupee flood intervention in the country." },
+        { "title": "Real-time urban flood sensors at 200 known choke points", "lever": "Data", "horizon": "3–6 mo", "impact": 76, "cost": "Medium", "effort": "Low", "how": "Level sensors plus a public map. Converts a 6-hour surprise into a 30-minute warning and lets the traffic police reroute." },
+        { "title": "Restore river corridors: Bagmati buffer and floodplain reconnection", "lever": "Ecology", "horizon": "5–10 yrs", "impact": 84, "cost": "Very high", "effort": "High", "how": "Give the Bagmati room to spread again. Encroachment removal plus setback enforcement is the only durable fix." },
+        { "title": "Community-managed GLOF early warning for 24 high-risk lakes", "lever": "Early warning", "horizon": "1–2 yrs", "impact": 88, "cost": "Medium", "effort": "Medium", "how": "Automatic water-level sensors, sirens, and trained ward-level response in downstream settlements." },
+        { "title": "Settlement relocation + slope-stabilisation in active landslide zones", "lever": "Engineering", "horizon": "5–10 yrs", "impact": 73, "cost": "Very high", "effort": "High", "how": "Map active landslide hazard, then relocate or engineer. Permanent protection for communities in gullies." }
+      ]
+    },
+    {
+      "id": "waste",
+      "name": "Waste & Sanitation",
+      "ne": "फोहोर-मैल व्यवस्थापन",
+      "icon": "recycle",
+      "accent": "#34d399",
+      "severity": 79,
+      "headline": "Urban Nepal makes ~4,900 tonnes a day. Half of it is never collected.",
+      "problem": "Collection coverage, transport and treatment have failed to keep pace with urbanisation. Around 4,900 tonnes/day are generated in Nepal's urban areas and ~1.8 million tonnes/year; roughly half is never collected, and a meaningful share is openly burned or dumped at Banchare Danda and Sisdol. Organic waste dominates the stream at ~71%, which makes composting and biogas the obvious low-hanging win.",
+      "mechanism": [
+        "753 local bodies, uneven technical and financial capacity.",
+        "No tender for non-degradable waste management in KMC since 2013.",
+        "Organic fraction (71%) untreated because no composting pathway exists.",
+        "Incentive misalignment: collectors paid by volume, not by diversion."
+      ],
+      "anchor": { "value": 4900, "unit": "tonnes/day", "label": "Urban Nepal municipal solid waste", "target": 100, "targetLabel": "% safely treated" },
+      "signals": ["~250 t/day already recovered for recycling", "Waling and Tilottama run odour-free compost sites", "63% of urban waste is generated in the Terai, 37% in the hills", "~74,000 t/year burned in Kathmandu Valley (2016 est.)", "Banchare Danda receives everything from KMC, Kakani and Banepa"],
+      "solutions": [
+        { "title": "Municipal organic composting + biogas at ward level", "lever": "Circularity", "horizon": "6–12 mo", "impact": 82, "cost": "Medium", "effort": "Medium", "how": "Segregate organics at source, compost locally, sell the compost to Terai farmers. Waling and Tilottama are proven templates — copy them." },
+        { "title": "Pay collectors per tonne diverted, not per tonne collected", "lever": "Incentives", "horizon": "3–6 mo", "impact": 76, "cost": "Low", "effort": "Low", "how": "One policy line flips the economics of the whole collection chain. Cheapest structural fix in the sector." },
+        { "title": "Material Recovery Facility at Banchare Danda, finally procured", "lever": "Infrastructure", "horizon": "1–2 yrs", "impact": 68, "cost": "Medium", "effort": "Medium", "how": "Close the tender abandoned since 2013. Without an MRF, segregation has nowhere to send material." },
+        { "title": "Extended Producer Responsibility for plastic packaging", "lever": "Regulation", "horizon": "2–4 yrs", "impact": 64, "cost": "Medium", "effort": "High", "how": "Make brands fund and collect their own packaging. Addresses the single biggest non-organic stream." }
+      ]
+    },
+    {
+      "id": "water",
+      "name": "Water & Drainage",
+      "ne": "पानी र ड्रेनेज",
+      "icon": "droplet",
+      "accent": "#22d3ee",
+      "severity": 77,
+      "headline": "Nepal's oldest infrastructure is a drainage network built for a smaller city.",
+      "problem": "Kathmandu Valley's drainage lines were laid in the 1960s–70s for a much smaller catchment. Today's impervious surface area sends runoff far beyond that design capacity. Households have expanded their own lines without design, street drains silt up, and sewer coverage in the Valley remains a fraction of the population. In the Terai, monsoon flood depth regularly exceeds two metres.",
+      "mechanism": [
+        "Culverts and storm drains sized for 1970s runoff volumes.",
+        "Uncoordinated household connections that reduce effective capacity.",
+        "Siltation from unpaved surfaces and construction spoil.",
+        "No separating storm-water from sanitary sewer."
+      ],
+      "anchor": { "value": 60, "unit": "years", "label": "Average age of Valley's primary storm drains", "target": 0, "targetLabel": "years overdue for capacity audit" },
+      "signals": ["Encroachment on open land is a primary flood cause", "KMC committee attributes flooding to encroachment + old drains + waste", "Sewer coverage in KMC covers a minority of households", "Terai flood depths above 2 m in Siraha and Saptari"],
+      "solutions": [
+        { "title": "Hydraulic capacity audit + targeted culphalast upsizing", "lever": "Engineering", "horizon": "1–2 yrs", "impact": 81, "cost": "Medium", "effort": "Medium", "how": "Model current runoff against installed capacity, then upsize the 50 choke points that fail first." },
+        { "title": "Community drains with published maintenance schedules", "lever": "Governance", "horizon": "3 mo", "impact": 70, "cost": "Low", "effort": "Low", "how": "Tole-level ownership of lane drains with ward oversight. Prevents the plastic-and-clothing blockages that end up in the news every monsoon." },
+        { "title": "Constructed wetlands and permeable paving on new builds", "lever": "Ecology", "horizon": "2–5 yrs", "impact": 63, "cost": "Medium", "effort": "Medium", "how": "Require on-site retention in building codes. Stops new impervious area from outgrowing the pipes." }
+      ]
+    },
+    {
+      "id": "energy",
+      "name": "Energy Access",
+      "ne": "ऊर्जा",
+      "icon": "bolt",
+      "accent": "#fbbf24",
+      "severity": 74,
+      "headline": "Nepal builds hydro in the monsoon and needs it in the dry season.",
+      "problem": "Nepal's power system is 90%+ hydro, so generation collapses exactly when demand peaks after winter. The valley still sees multi-hour evening outages in dry-season peaks, and households — especially small enterprises — pay a heavy premium for diesel backup. Terai industrial belts and eastern cities face the longest outages.",
+      "mechanism": [
+        "Hydro-dominated mix with a strong seasonal mismatch.",
+        "Weak transmission/distribution backbone into and across the Valley.",
+        "Under-invested distribution transformers in rapidly expanding wards.",
+        "Frequent self-generation (diesel gensets) by businesses."
+      ],
+      "anchor": { "value": 6, "unit": "hours/day", "label": "Dry-season evening outage in Valley urban grids", "target": 0, "targetLabel": "target unscheduled outage" },
+      "signals": ["Evening peak is the worst block", "Dharan, Janakpur, Butwal and Nepalgunj report 8–13 h outages", "Valley import share about 42%", "Small solar + storage is now cheaper than diesel backup in many Terai cases"],
+      "solutions": [
+        { "title": "Rooftop solar + storage for hospitals, schools and tole offices", "lever": "Distributed", "horizon": "1–2 yrs", "impact": 77, "cost": "Medium", "effort": "Medium", "how": "Public buildings are the perfect first anchor load: reliable, metered, and revenue-generating." },
+        { "title": "Managed EV charging as evening valley demand", "lever": "Demand", "horizon": "2–4 yrs", "impact": 58, "cost": "High", "effort": "Medium", "how": "Shift charging to 22:00–06:00 so e-mobiles flatten the evening peak rather than adding to it." },
+        { "title": "Distribution transformer upgrade in fast-growing wards", "lever": "Grid", "horizon": "2–3 yrs", "impact": 66, "cost": "Medium", "effort": "Medium", "how": "Replace undersized transformers ward by ward; a single hardware swap removes months of outages." }
+      ]
+    },
+    {
+      "id": "health",
+      "name": "Health Access",
+      "ne": "स्वास्थ्य सेवा",
+      "icon": "heart",
+      "accent": "#f472b6",
+      "severity": 69,
+      "headline": "In rural Nepal the nearest health centre can be over 100 km away.",
+      "problem": "Only about 61.8% of households reach a health service within 30 minutes — 85.9% in urban areas against 59% rural. In the Terai, a tertiary centre may be 15 km away; in the Himalaya, over 100 km. Skewed deployment means specialists cluster in the Valley while mountain districts run on a handful of doctors.",
+      "mechanism": [
+        "Health workforce concentrated in urban and provincial capitals.",
+        "Attrition and frequent transfer of rural staff.",
+        "Terrain and seasonal road/bridge failure delay referrals.",
+        "Out-of-pocket payment at the point of care."
+      ],
+      "anchor": { "value": 61.8, "unit": "%", "label": "Households within 30 minutes of a health service (rural: 59%)", "target": 95, "targetLabel": "national UHC target" },
+      "signals": ["A PHC can serve up to ~20,000 patients per year", "Only 2–6 tertiary hospitals in most district HQs", "Digital health pilots fail on power, not on software", "Health data privacy is the stated public concern"],
+      "solutions": [
+        { "title": "Solar-powered telemedicine rooms in every mountain PHC", "lever": "Digital health", "horizon": "1–2 yrs", "impact": 80, "cost": "Medium", "effort": "Medium", "how": "Offline-first store-and-forward consults with a rotating specialist roster. Solves the connectivity constraint directly." },
+        { "title": "Rural retention package: housing + hardship allowance + career path", "lever": "Workforce", "horizon": "2–4 yrs", "impact": 79, "cost": "High", "effort": "High", "how": "Money alone has not worked. Combine housing, a clear promotion track and guaranteed posting length." },
+        { "title": "Ambulance + referral network on the postal/taxi route network", "lever": "Access", "horizon": "1–2 yrs", "impact": 72, "cost": "Medium", "effort": "Low", "how": "Taxi and bus operators already cover the road network. Train them as paid first-responders." }
+      ]
+    },
+    {
+      "id": "agri",
+      "name": "Agriculture",
+      "ne": "कृषि",
+      "icon": "sprout",
+      "accent": "#84cc16",
+      "severity": 71,
+      "headline": "Nepal farms for a normal year. The monsoon has other plans.",
+      "problem": "Agriculture still employs a large share of the workforce, yet yields are low and exposed. Unseasonal rain delays rice planting, floods submerge crops at harvest, and drought strikes districts the monsoon never reached. Farmers get weather and market information days after the decision point, and input costs are high while output prices are set far away.",
+      "mechanism": [
+        "Rain-fed systems with no irrigation buffer in the hills.",
+        "Single-cropping calendars exposed to a shifting monsoon.",
+        "Extension and market information arriving after the sowing window.",
+        "Post-harvest losses from weak storage and cold-chain gaps."
+      ],
+      "anchor": { "value": 71, "unit": "%", "label": "Share of household waste that is organic — and uncomposted in cities", "target": 70, "targetLabel": "% of urban organics composted" },
+      "signals": ["Rice planting delayed in unseasonal rain years", "Crops submerged near harvest in Koshi and Madhesh", "Silent droughts in districts the monsoon skips", "Infrastructure damage to roads and hydropower each monsoon"],
+      "solutions": [
+        { "title": "Offline farm-weather advisories in the local language", "lever": "Advisory", "horizon": "3–6 mo", "impact": 74, "cost": "Low", "effort": "Low", "how": "Push 5-day rainfall probability and sowing-window guidance over IVR and SMS before the planting decision." },
+        { "title": "Community seed banks for monsoon-shifted rice varieties", "lever": "Resilience", "horizon": "1–2 yrs", "impact": 71, "cost": "Low", "effort": "Low", "how": "Store short-duration and flood-tolerant local varieties at ward level so a bad season is not a lost year." },
+        { "title": "City-compost supply chain linking waste to Terai farms", "lever": "Circularity", "horizon": "1–2 yrs", "impact": 69, "cost": "Medium", "effort": "Medium", "how": "Turn Kathmandu's organic waste into Terai soil amendment. Solves two problems with one supply chain." }
+      ]
+    },
+    {
+      "id": "connect",
+      "name": "Digital Divide",
+      "ne": "डिजिटल विभाजन",
+      "icon": "signal",
+      "accent": "#a78bfa",
+      "severity": 76,
+      "headline": "Nepal reports 145% broadband penetration and only 56% of people online.",
+      "problem": "Subscription counts wildly overstate access: many users hold a mobile SIM and a fixed line counted separately. About 56% of people were online in late 2025, and only ~40% of households have internet at home. Urban access runs 65% against 22% rural; the Kathmandu Valley reports 79.3% penetration while Karnali manages 14%. Digital literacy is just 31%. Caste, gender and language compound the gap.",
+      "mechanism": [
+        "Input costs and taxation keep prices above affordability.",
+        "Backhaul is absent in mountain and remote terrain.",
+        "Devices and data cost more than the value individuals perceive.",
+        "Digital literacy lags even where a connection exists.",
+        "Grey-market sharing is up to 30% cheaper than legal ISP service."
+      ],
+      "anchor": { "value": 56, "unit": "%", "label": "People online (DataReportal, late 2025) — vs 145% reported subscriptions", "target": 95, "targetLabel": "National Broadband Policy goal by 2030" },
+      "signals": ["Karnali 14% vs Kathmandu Valley 79.3%", "Digital literacy 31% nationally", "37% of upper-caste households online vs 21% Dalit", "Mobile broadband is 93.8% of all subscriptions", "NTC has extended fibre to all 77 districts"],
+      "solutions": [
+        { "title": "Community Digital Hubs: one device, many users", "lever": "Inclusion", "horizon": "3–6 mo", "impact": 82, "cost": "Medium", "effort": "Low", "how": "A ward-level kiosk with trained operators. Ownership cost, not connection, is the binding constraint for most households." },
+        { "title": "Offline-first mobile data sync for AI in low-connectivity areas", "lever": "Technology", "horizon": "6–12 mo", "impact": 70, "cost": "Low", "effort": "Medium", "how": "Bundle the knowledge base as a static on-device dataset so Nexa answers without a live connection." },
+        { "title": "Local-language voice interface (Nepali, Maithili, Tharu, Bhojpuri)", "lever": "Inclusion", "horizon": "6–12 mo", "impact": 78, "cost": "Medium", "effort": "Medium", "how": "Drop the literacy requirement entirely. Voice-first access reaches users who cannot read a menu." },
+        { "title": "Village Wi-Fi on NTC fibre, subsidised at the ward level", "lever": "Infrastructure", "horizon": "1–3 yrs", "impact": 66, "cost": "High", "effort": "Medium", "how": "NTC fibre already reaches all 77 districts; the missing layer is affordable last-mile access." }
+      ]
+    }
+  ]
+}
