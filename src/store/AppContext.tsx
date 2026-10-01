@@ -9,6 +9,7 @@ import {
   loadSignals,
   loadThreads,
   markSeen,
+  saveApiKey,
   saveSettings,
   saveThread,
   type Backend,
@@ -40,6 +41,7 @@ interface NexaCtx {
 
   hasKey: boolean;
   apiKey: string;
+  saveKey: (v: string) => void;
 
   backend: Backend | null;
   refreshBackend: () => Promise<void>;
@@ -131,6 +133,19 @@ export function NexaProvider({ children }: { children: ReactNode }) {
 
   const setLang = useCallback((l: Lang) => update({ lang: l }), [update]);
 
+  /**
+   * Persists the key and mirrors it into context state in one step. Settings used
+   * to call saveApiKey directly, which left `hasKey` stale for the rest of the
+   * session: adding a key and navigating back to Ask still showed "No key" and
+   * silently kept using Knowledge Mode.
+   */
+  const saveKey = useCallback((v: string) => {
+    const next = v.trim();
+    saveApiKey(next);
+    setApiKey(next);
+    void refreshBackend();
+  }, [refreshBackend]);
+
   const value = useMemo<NexaCtx>(
     () => ({
       settings,
@@ -143,6 +158,7 @@ export function NexaProvider({ children }: { children: ReactNode }) {
       upsertThread,
       hasKey: apiKey.length > 0,
       apiKey,
+      saveKey,
       backend,
       refreshBackend,
       lang: settings.lang,
@@ -152,7 +168,7 @@ export function NexaProvider({ children }: { children: ReactNode }) {
       dismiss,
       ready,
     }),
-    [settings, update, theme, signals, threads, upsertThread, apiKey, backend, refreshBackend, setLang, toasts, toast, dismiss, ready],
+    [settings, update, theme, signals, threads, upsertThread, apiKey, saveKey, backend, refreshBackend, setLang, toasts, toast, dismiss, ready],
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

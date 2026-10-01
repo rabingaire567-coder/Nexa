@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import { Reveal, Section, SourceNote } from '@/components/ui';
-import { loadApiKey, loadSignals, resetBackendCache, saveApiKey, syncAll } from '@/lib/db';
+import { loadApiKey, loadSignals, resetBackendCache, syncAll } from '@/lib/db';
 import { listModels, resolveModel, resetModelCache } from '@/lib/ai';
 import { useNexa } from '@/store/AppContext';
 import type { NexaModel } from '@/types';
 import { cx } from '@/lib/utils';
 
 export default function Settings() {
-  const { settings, update, theme, toggleTheme, backend, refreshBackend, toast, setSignals, lang, setLang } = useNexa();
+  const { settings, update, theme, toggleTheme, backend, refreshBackend, toast, setSignals, lang, setLang, saveKey } = useNexa();
   const [key, setKey] = useState('');
   const [reveal, setReveal] = useState(false);
   const [models, setModels] = useState<NexaModel[]>([]);
@@ -58,17 +58,16 @@ export default function Settings() {
       toast('warn', 'Enter a key before saving.');
       return;
     }
-    saveApiKey(k);
+    saveKey(k);
     resetModelCache();
     resetBackendCache();
     setStatus('ok');
     setDetail('Saved to this browser only.');
     toast('ok', 'Gemini key stored in this browser.');
-    void refreshBackend();
   }
 
   function clear(): void {
-    saveApiKey('');
+    saveKey('');
     setKey('');
     setModels([]);
     setStatus('idle');
@@ -76,7 +75,6 @@ export default function Settings() {
     resetModelCache();
     resetBackendCache();
     toast('info', 'API key removed from this browser.');
-    void refreshBackend();
   }
 
   return (

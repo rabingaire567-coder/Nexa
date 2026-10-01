@@ -16,7 +16,12 @@ import process from 'node:process';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'Nexa.zip');
 
-const SKIP_DIRS = new Set(['node_modules', 'dist', '.git', '.cache', '.vscode', '.idea', 'coverage', '.vercel', 'preview']);
+/**
+ * `preview/` is kept even though it is only screenshots, because README.md
+ * embeds those images and the archive should render standalone. It costs 6 files
+ * and still leaves the project far under the 100-file ceiling.
+ */
+const SKIP_DIRS = new Set(['node_modules', 'dist', '.git', '.cache', '.vscode', '.idea', 'coverage', '.vercel']);
 const SKIP_FILES = new Set(['Nexa.zip', 'signals.json', '.env', '.env.local', 'tsconfig.tsbuildinfo']);
 const MAX_FILES = 100;
 
@@ -64,8 +69,8 @@ function dosDateTime(date) {
 const files = await walk(ROOT);
 files.sort((a, b) => a.rel.localeCompare(b.rel));
 
-if (files.length > MAX_FILES) {
-  console.error(`Refusing to zip: ${files.length} files exceeds the ${MAX_FILES}-file limit.`);
+if (files.length >= MAX_FILES) {
+  console.error(`Refusing to zip: ${files.length} files reaches the ${MAX_FILES}-file limit (must stay under it).`);
   process.exit(1);
 }
 
