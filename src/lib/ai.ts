@@ -12,7 +12,7 @@ import {
   SECTOR_IDS,
 } from './nepal';
 import type { City, District, Sector, SectorId } from '@/types';
-import { loadApiKey, loadSettings } from './db';
+import { detectBackend, loadApiKey, loadSettings } from './db';
 import { uid } from './utils';
 
 /**
@@ -248,8 +248,25 @@ const cityBrief = (c: City) => ({
   airport: c.airport,
 });
 
+/**
+ * Tool names from the previous API build, mapped onto Nexa's current pair.
+ * The server forwards whatever declarations the client sends, so this shim only
+ * matters if an older backend process is still running.
+ */
+const TOOL_ALIASES: Record<string, { name: string; args: Record<string, unknown> }> = {
+  get_district: { name: 'nexa_lookup', args: { kind: 'district' } },
+  get_sector: { name: 'nexa_lookup', args: { kind: 'sector' } },
+  list_districts: { name: 'nexa_lookup', args: { kind: 'search' } },
+  national_overview: { name: 'nexa_lookup', args: { kind: 'national', query: 'Nepal' } },
+};
+
 /** Executes a tool call against the bundled knowledge base. */
-export function runTool(name: string, args: Record<string, unknown>): unknown {
+export function runTool(rawName: string, rawArgs: Record<string, unknown>): unknown {
+  const alias = TOOL_ALIASES[rawName];
+  const name = alias ? alias.name : rawName;
+  const args = alias
+    ? { ...alias.args, query: String(rawArgs.id ?? rawArgs.metric ?? rawArgs.query ?? rawArgs.sector ?? '') }
+    : rawArgs;
   const q = String(args.query ?? args.sector ?? '').trim();
   const lower = q.toLowerCase();
 
@@ -474,14 +491,12 @@ export async function ask(opts: AskOptions): Promise<{ text: string; toolCalls: 
   const systemInstruction = opts.systemInstruction ?? SYSTEM_INSTRUCTION;
   const useTools = opts.tools !== false && !opts.json;
   const wantJson = Boolean(opts.json);
+  const toolPayload = useTools ? TOOL_DECLARATIONS : false;
 
-  let transport = 'server';
-  try {
-    const res = await fetch('/api/health', { signal: AbortSignal.timeout(2200) });
-    if (!res.ok) throw new Error('no backend');
-  } catch {
-    transport = 'browser';
-  }
+  // Reuses the single cached probe from db.ts so a static host is only ever
+  // asked once per session instead of on every message.
+  const backend = await detectBackend();
+  const transport: 'server' | 'browser' = backend.up && backend.mode === 'server' ? 'server' : 'browser';
 
   let key = '';
   if (transport === 'browser') key = await browserKey();
@@ -505,11 +520,11 @@ export async function ask(opts: AskOptions): Promise<{ text: string; toolCalls: 
     };
 
     if (transport === 'server') {
-      const res = await withRetry(() => serverStream({ systemInstruction, contents, tools: useTools, json: wantJson, signal: opts.signal }, onChunk, opts));
+      const res = await withRetry(() => serverStream({ systemInstruction, contents, tools: toolPayload, json: wantJson, signal: opts.signal }, onChunk, opts));
       model = res.model;
     } else {
       model = await resolveModel(key);
-      model = await withRetry(() => directStream(key, model, { systemInstruction, contents, tools: useTools, json: wantJson, signal: opts.signal }, onChunk, opts));
+      model = await withRetry(() => directStream(key, model, { systemInstruction, contents, tools: toolPayload, json: wantJson, signal: opts.signal }, onChunk, opts));
     }
 
     // Tool round-trip
@@ -547,7 +562,12 @@ export async function ask(opts: AskOptions): Promise<{ text: string; toolCalls: 
 interface StreamPayload {
   systemInstruction: string;
   contents: { role: string; parts: Part[] }[];
-  tools: boolean;
+  /**
+   * The full function declarations, not a boolean. The server holds no copy of
+   * the tool schema — it forwards whatever the client sends — so the knowledge
+   * base contract can never drift between the two.
+   */
+  tools: typeof TOOL_DECLARATIONS | false;
   json: boolean;
   signal?: AbortSignal;
 }
@@ -563,12 +583,12 @@ async function serverStream(
   opts.signal?.addEventListener('abort', onAbort);
 
   try {
-    const res = await fetch('/api/ai/stream', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      signal: ctl.signal,
-    });
+      const res = await fetch('/api/ai/stream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: ctl.signal,
+      });
     if (!res.ok) throw normalise(res.status, await safeJson(res));
     if (!res.body) throw new NexaError('unknown', 'The Nexa API returned no stream.');
 
@@ -618,7 +638,7 @@ async function directStream(
       ...(payload.json ? { responseMimeType: 'application/json' } : {}),
     },
   };
-  if (payload.tools) body.tools = TOOL_DECLARATIONS;
+  if (payload.tools) body.tools = payload.tools;
 
   let current = model;
   const chain = [model, ...FALLBACK_CHAIN.filter((m) => m !== model)];

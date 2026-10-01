@@ -11,6 +11,11 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* `clip` rather than `hidden`: it contains the transform overflow produced by
+     the scroll-reveal animations (translateX(30px) on not-yet-revealed nodes)
+     without creating a scroll container, so `position: sticky` on the nav keeps
+     working. `hidden` here would silently break the sticky header. */
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -29,7 +34,7 @@ body {
   font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  overflow-x: clip;
   transition: background var(--t-base) var(--ease-out), color var(--t-base) var(--ease-out);
 }
 

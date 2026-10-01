@@ -183,7 +183,16 @@ export function resetBackendCache(): void {
   backendCache = null;
 }
 
+/**
+ * Push one signal to the optional Node backend.
+ *
+ * On a static host (GitHub Pages) there is no /api at all. Probing first keeps
+ * the console clean instead of logging a failed request for every report, and
+ * the signal is already safely persisted to localStorage either way.
+ */
 async function pushSignal(sig: Signal): Promise<void> {
+  const backend = await detectBackend();
+  if (!backend.up) return;
   try {
     const res = await fetch('/api/signals', {
       method: 'POST',
@@ -198,6 +207,8 @@ async function pushSignal(sig: Signal): Promise<void> {
 }
 
 export async function syncAll(): Promise<{ pushed: number; pulled: Signal[] }> {
+  const empty = { pushed: 0, pulled: [] as Signal[] };
+  if (!(await detectBackend()).up) return empty;
   try {
     const local = loadSignals();
     const res = await fetch('/api/signals', {
@@ -213,6 +224,6 @@ export async function syncAll(): Promise<{ pushed: number; pulled: Signal[] }> {
     saveSignals([...merged.values()].sort((a, b) => b.createdAt - a.createdAt));
     return { pushed: local.length, pulled };
   } catch {
-    return { pushed: 0, pulled: [] };
+    return empty;
   }
 }

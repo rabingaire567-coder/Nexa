@@ -10,6 +10,7 @@ Nexa.zip
 Thumbs.db
 *.log
 npm-debug.log*
+*.tmp.mjs
 .vscode/*
 !.vscode/extensions.json
 .idea

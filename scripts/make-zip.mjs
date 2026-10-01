@@ -30,7 +30,7 @@ async function walk(dir, rel = '') {
       if (SKIP_DIRS.has(entry.name)) continue;
       files.push(...(await walk(abs, relPath)));
     } else if (entry.isFile()) {
-      if (SKIP_FILES.has(entry.name) || entry.name.endsWith('.log') || entry.name.endsWith('.tsbuildinfo')) continue;
+      if (SKIP_FILES.has(entry.name) || entry.name.endsWith('.log') || entry.name.endsWith('.tsbuildinfo') || entry.name.endsWith('.tmp.mjs')) continue;
       files.push({ abs, rel: relPath });
     }
   }

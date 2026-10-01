@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Icon } from '@/components/Icon';
 import { NexaError, ask, districtOpener, newConversationId, type AskOptions } from '@/lib/ai';
+import { answerFromKb } from '@/lib/kb';
 import { deleteThread, type ChatThread } from '@/lib/db';
 import { districtById, sectorById, cityById } from '@/lib/nepal';
 import { useNexa } from '@/store/AppContext';
@@ -23,6 +24,22 @@ const NEPALI_SUGGESTIONS = [
   'पहाडमा स्वास्थ्य सेवा किन पहुँच छैन?',
   'प्लास्टिक फोहोर व्यवस्थापनका वास्तविक उपायहरू के हुन्?',
 ];
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Yields the accumulated text a few words at a time so Knowledge Mode reads like
+ * a streamed model response instead of snapping in all at once.
+ */
+async function* streamWords(text: string): AsyncGenerator<string> {
+  const words = text.split(/(\s+)/);
+  let acc = '';
+  for (const w of words) {
+    acc += w;
+    yield acc;
+    if (!/^\s+$/.test(w)) await sleep(9);
+  }
+}
 
 export default function Ask() {
   const [params] = useSearchParams();
@@ -90,10 +107,6 @@ export default function Ask() {
   async function send(text?: string): Promise<void> {
     const prompt = (text ?? draft).trim();
     if (!prompt || busy) return;
-    if (!hasKey && !backend?.up) {
-      toast('warn', 'Add a Gemini API key to activate Sakhi.');
-      return;
-    }
 
     const userMsg: ChatMessage = { role: 'user', text: prompt, at: Date.now() };
     const next = [...messages, userMsg];
@@ -106,6 +119,45 @@ export default function Ask() {
     const ctl = new AbortController();
     abortRef.current = ctl;
 
+    const commit = (out: ChatMessage, transport: string, model: string) => {
+      const final = [...next, out];
+      setMessages(final);
+      setStreaming('');
+      setTransport(transport);
+      setModelUsed(model);
+      upsertThread({
+        id: threadId,
+        title: final.find((m) => m.role === 'user')?.text.slice(0, 60) ?? 'New conversation',
+        createdAt: final[0].at,
+        updatedAt: Date.now(),
+        messages: final,
+      });
+    };
+
+    // Knowledge Mode: no key configured, so answer from the bundled dataset
+    // instead of showing a dead composer. Retrieval is instant, but it is
+    // streamed word-by-word so the reading experience matches the live model.
+    if (!hasKey && !backend?.up) {
+      const answer = answerFromKb(prompt);
+      setLiveTools(answer.tools);
+      try {
+        for await (const chunk of streamWords(answer.text)) {
+          if (ctl.signal.aborted) break;
+          setStreaming(chunk);
+          await sleep(11);
+        }
+      } catch {
+        /* aborted mid-stream */
+      }
+      setLiveTools([]);
+      if (!ctl.signal.aborted) {
+        commit({ role: 'model', text: answer.text, at: Date.now(), tools: answer.tools }, 'knowledge', 'Nexa Knowledge Base');
+      }
+      setBusy(false);
+      abortRef.current = null;
+      return;
+    }
+
     const opts: AskOptions = {
       messages: next,
       signal: ctl.signal,
@@ -115,19 +167,7 @@ export default function Ask() {
 
     try {
       const res = await ask(opts);
-      const out: ChatMessage = { role: 'model', text: res.text || '(empty response)', at: Date.now(), tools: res.toolCalls };
-      const final = [...next, out];
-      setMessages(final);
-      setStreaming('');
-      setTransport(res.transport);
-      setModelUsed(res.model);
-      upsertThread({
-        id: threadId,
-        title: final.find((m) => m.role === 'user')?.text.slice(0, 60) ?? 'New conversation',
-        createdAt: final[0].at,
-        updatedAt: Date.now(),
-        messages: final,
-      });
+      commit({ role: 'model', text: res.text || '(empty response)', at: Date.now(), tools: res.toolCalls }, res.transport, res.model);
     } catch (err) {
       const message = err instanceof NexaError ? err.message : 'Something went wrong talking to Sakhi.';
       setMessages([...next, { role: 'model', text: message, at: Date.now(), error: true }]);
@@ -146,7 +186,11 @@ export default function Ask() {
     setStreaming('');
   }
 
-  const needsKey = !hasKey && !backend?.up;
+  /**
+   * Knowledge Mode is available without a key, so the composer stays live.
+   * Only a running request is locked.
+   */
+  const needsKey = false;
   const suggestions = settings.lang === 'ne' ? NEPALI_SUGGESTIONS : SUGGESTIONS;
 
   return (
@@ -226,7 +270,7 @@ export default function Ask() {
         <div className="chat-log" ref={logRef}>
           <div className="wrap-narrow" style={{ padding: 0 }}>
             {messages.length === 0 && !streaming ? (
-              <Welcome needsKey={needsKey} suggestions={suggestions} onSuggest={(s) => void send(s)} />
+              <Welcome live={hasKey || Boolean(backend?.up)} suggestions={suggestions} onSuggest={(s) => void send(s)} />
             ) : (
               messages.map((m, i) => (
                 <Bubble key={i} msg={m} />
@@ -306,7 +350,7 @@ export default function Ask() {
   );
 }
 
-function Welcome({ needsKey, suggestions, onSuggest }: { needsKey: boolean; suggestions: string[]; onSuggest: (s: string) => void }) {
+function Welcome({ live, suggestions, onSuggest }: { live: boolean; suggestions: string[]; onSuggest: (s: string) => void }) {
   return (
     <div style={{ padding: 'clamp(1.5rem, 5vw, 3.4rem) 0', textAlign: 'center' }}>
       <span
@@ -330,15 +374,18 @@ function Welcome({ needsKey, suggestions, onSuggest }: { needsKey: boolean; sugg
         same knowledge base the atlas uses, so nothing is invented.
       </p>
 
-      {needsKey && (
-        <div className="card card-accent a-up" style={{ ['--accent' as string]: 'var(--grad-gold)', maxWidth: 520, margin: '0 auto 1.6rem', textAlign: 'left' }}>
+      {!live && (
+        <div className="card card-accent a-up" style={{ ['--accent' as string]: 'var(--grad-gold)', maxWidth: 560, margin: '0 auto 1.6rem', textAlign: 'left' }}>
           <div className="row" style={{ gap: 9, alignItems: 'flex-start' }}>
-            <Icon name="key" size={18} style={{ color: 'var(--gold)', flexShrink: 0, marginTop: 2 }} />
+            <Icon name="sparkle" size={18} style={{ color: 'var(--gold)', flexShrink: 0, marginTop: 2 }} />
             <div>
-              <strong style={{ fontSize: 'var(--fs-sm)', display: 'block', marginBottom: 4 }}>Sakhi needs a Gemini API key</strong>
+              <strong style={{ fontSize: 'var(--fs-sm)', display: 'block', marginBottom: 4 }}>
+                Running in Knowledge Mode
+              </strong>
               <p className="small muted" style={{ marginBottom: '0.8rem' }}>
-                Get a free key from Google AI Studio, then paste it in Nexa. It is stored only in this browser
-                and never sent to any Nexa server.
+                Sakhi is answering straight from the bundled Nexa dataset — 77 districts, 7 provinces and 9 sectors,
+                with every figure traceable to its source. Add a free Gemini API key to switch to the live model,
+                which reasons in Nepali and English and calls the same tools over the conversation.
               </p>
               <div className="row" style={{ gap: '0.5rem', flexWrap: 'wrap' }}>
                 <Link className="btn btn-primary btn-sm" to="/settings">

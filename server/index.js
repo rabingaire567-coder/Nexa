@@ -167,17 +167,10 @@ app.post('/api/ai/stream', async (req, res) => {
         })),
         generationConfig,
       };
-      if (tools) {
-        body.tools = [
-          {
-            functionDeclarations: [
-              { name: 'get_district', description: 'Full civic profile for one of Nepal\'s 77 districts.', parameters: { type: 'OBJECT', properties: { id: { type: 'STRING', description: 'District slug, e.g. bhaktapur' } }, required: ['id'] } },
-              { name: 'list_districts', description: 'Districts ranked by a given index, worst first.', parameters: { type: 'OBJECT', properties: { metric: { type: 'STRING', description: 'Index name, e.g. floodRisk' }, province: { type: 'STRING' }, limit: { type: 'INTEGER' } }, required: ['metric'] } },
-              { name: 'get_sector', description: 'Definition, indicators and solutions for one of the nine sectors.', parameters: { type: 'OBJECT', properties: { id: { type: 'STRING' } }, required: ['id'] } },
-              { name: 'national_overview', description: 'National indicators, monsoon risks and emergency numbers.', parameters: { type: 'OBJECT', properties: {} } },
-            ],
-          },
-        ];
+      // The client owns the tool schema. We forward its declarations verbatim so
+      // the knowledge-base contract can never drift between browser and server.
+      if (Array.isArray(tools) && tools.length > 0) {
+        body.tools = tools;
         body.toolConfig = { functionCallingConfig: { mode: 'AUTO' } };
       }
 
